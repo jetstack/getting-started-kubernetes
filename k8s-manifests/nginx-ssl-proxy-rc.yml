@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-ssl-proxy
+spec:
+  replicas: 2
+  selector:
+    name: nginx
+    role: ssl-proxy
+  template:
+    metadata:
+      labels:
+        name: nginx
+        role: ssl-proxy
+    spec:
+      containers:
+        - name: nginx-ssl-proxy
+          image: jetstack/nginx-ssl-proxy
+          env:
+          - name: "SERVICE_HOST_ENV_NAME"
+            value: "SIMPLE_CMS_SERVICE_HOST"
+          - name: "SERVICE_PORT_ENV_NAME"
+            value: "SIMPLE_CMS_SERVICE_PORT"
+          ports:
+          - name: ssl-proxy-http
+            containerPort: 80
+          - name: ssl-proxy-https
+            containerPort: 443
+          volumeMounts:
+          - name: secrets
+            mountPath: /etc/secrets
+            readOnly: true
+      volumes:
+      - name: secrets
+        secret:
+          secretName: ssl-proxy-secret

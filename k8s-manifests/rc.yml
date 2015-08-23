@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: simple-cms
+spec:
+  replicas: 2
+  selector:
+    name: simple-cms
+    track: stable
+    version: 1.0.0
+  template:
+    metadata:
+      labels:
+        name: simple-cms
+        track: stable
+        version: 1.0.0
+    spec:
+      containers:
+        - name: simple-cms
+          image: jetstack/simple-cms:1.0.0
+          ports:
+            - containerPort: 8081

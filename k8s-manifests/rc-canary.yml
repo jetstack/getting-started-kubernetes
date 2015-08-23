@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: simple-cms-canary
+spec:
+  replicas: 1
+  selector:
+    name: simple-cms
+    track: canary
+  template:
+    metadata:
+      labels:
+        name: simple-cms
+        track: canary
+    spec:
+      containers:
+        - name: simple-cms
+          image: jetstack/simple-cms:1.1.0
+          ports:
+            - containerPort: 8081
+          volumeMounts:
+          - mountPath: /files
+            name: files-volume
+      volumes:
+        - name: files-volume
+          emptyDir: {}
