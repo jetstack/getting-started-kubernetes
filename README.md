@@ -9,4 +9,4 @@
 * [Scale up a replication controller](labs/03-scale-replication-controller.md)
 * [Exposing as a service](labs/04-expose-service.md)
 * [Rolling update](labs/05-rolling-update.md)
-* [Deploy a Nginx SSL proxy](labs/nginx-ssl-proxy.md) 
+* [Deploy a Nginx SSL proxy](labs/06-nginx-ssl-proxy.md) 
